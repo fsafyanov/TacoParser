@@ -17,11 +17,26 @@
             // If your array.Length is less than 3, something went wrong
             if (cells.Length < 3)
             {
+              
                 // Log that and return null
+                logger.LogWarning("Something went wrong.");
                 // Do not fail if one record parsing fails, return null
                 return null; // TODO Implement
             }
 
+            double latitude;
+            double longitude;
+            try
+            {
+                latitude = double.Parse(cells[0]);
+                longitude = double.Parse(cells[1]);
+            }
+            catch
+            {
+                return null;
+            }
+
+            string name = cells[2];
             // grab the latitude from your array at index 0
             // grab the longitude from your array at index 1
             // grab the name from your array at index 2
@@ -35,10 +50,19 @@
             // Then, you'll need an instance of the TacoBell class
             // With the name and point set correctly
 
+            var tacoBell = new TacoBell();
+            tacoBell.Name = name;
+
+            Point loc1 = new Point();
+            loc1.Latitude = latitude;
+            loc1.Longitude = longitude;
+
+            tacoBell.Location = loc1;
+
             // Then, return the instance of your TacoBell class
             // Since it conforms to ITrackable
 
-            return null;
+            return tacoBell;
         }
     }
 }
